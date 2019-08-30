@@ -64,7 +64,9 @@ namespace CLTools.Cmdlet
             IntPtr serviceManagerHandle = OpenSCManager(null, null, SC_MANAGER_ALL_ACCESS);
             if (serviceManagerHandle == IntPtr.Zero)
             {
-                throw new ExternalException("サービスマネージャのオープンに失敗");
+                string message = "サービスマネージャのオープンに失敗";
+                Console.WriteLine(message);
+                throw new ExternalException(message);
             }
             return serviceManagerHandle;
         }
@@ -74,11 +76,12 @@ namespace CLTools.Cmdlet
                 serviceManagerHandle, serviceController.ServiceName, SERVICE_QUERY_CONFIG | SERVICE_CHANGE_CONFIG);
             if (serviceHandle == IntPtr.Zero)
             {
-                throw new ExternalException("サービスのオープンに失敗");
+                string message = "サービスのオープンに失敗";
+                Console.WriteLine(message);
+                throw new ExternalException(message);
             }
             return serviceHandle;
         }
-        //private static void ChangeServiceStartType(IntPtr serviceHandle, ServiceStartMode mode)
         private static void ChangeServiceStartType(IntPtr serviceHandle, string startMode)
         {
             uint mode = 0;
@@ -102,7 +105,9 @@ namespace CLTools.Cmdlet
                 null);
             if (!ret)
             {
-                ThrowLastWin32Error("サービス開始タイプの変更に失敗");
+                string message = "サービス開始タイプの変更に失敗";
+                Console.WriteLine(message);
+                ThrowLastWin32Error(message);
             }
         }
         private static void ChangeDelayedAutoStart(IntPtr hService, bool delayed)
@@ -115,7 +120,9 @@ namespace CLTools.Cmdlet
             Marshal.FreeHGlobal(hInfo);
             if (!ret)
             {
-                ThrowLastWin32Error("サービス遅延自動設定の変更に失敗");
+                string message = "サービス遅延自動設定の変更に失敗";
+                Console.WriteLine(message);
+                ThrowLastWin32Error(message);
             }
         }
         #endregion
@@ -125,18 +132,16 @@ namespace CLTools.Cmdlet
         const string MANUAL = "Manual";
         const string DISABLED = "Disabled";
         const string DELAYED_AUTOMATIC = "DelayedAutomatic";
-        //enum ServiceStartMode { Automatic = 2, Manual = 3, Disabled = 4, DelayedAutomatic = 99 };
-
-
+        
         [Parameter(Mandatory = true, Position = 0)]
-        public string Service { get; set; }
+        public string Name { get; set; }
         [Parameter]
         [ValidateSet(NONE, AUTOMATIC, MANUAL, DISABLED, DELAYED_AUTOMATIC)]
         public string StartupType { get; set; } = NONE;
 
         protected override void ProcessRecord()
         {
-            ServiceController serviceController = ServiceControl.GetServiceController(Service);
+            ServiceController serviceController = ServiceControl.GetServiceController(Name);
 
             IntPtr serviceManagerHandle = OpenServiceManagerHandle();
             IntPtr serviceHandle = OpenServiceHandle(serviceController, serviceManagerHandle);
@@ -153,28 +158,6 @@ namespace CLTools.Cmdlet
                     ChangeDelayedAutoStart(serviceHandle, false);
                     ChangeServiceStartType(serviceHandle, StartupType);
                 }
-
-                /*
-                switch (StartupType)
-                {
-                    case DELAYED_AUTOMATIC:
-                        ChangeServiceStartType(serviceHandle, ServiceStartMode.Automatic);
-                        ChangeDelayedAutoStart(serviceHandle, true);
-                        break;
-                    case AUTOMATIC:
-                        ChangeDelayedAutoStart(serviceHandle, false);
-                        ChangeServiceStartType(serviceHandle, ServiceStartMode.Automatic);
-                        break;
-                    case MANUAL:
-                        ChangeDelayedAutoStart(serviceHandle, false);
-                        ChangeServiceStartType(serviceHandle, ServiceStartMode.Manual);
-                        break;
-                    case DISABLED:
-                        ChangeDelayedAutoStart(serviceHandle, false);
-                        ChangeServiceStartType(serviceHandle, ServiceStartMode.Disabled);
-                        break;
-                }
-                */
             }
             catch { }
             if (serviceHandle != IntPtr.Zero)
