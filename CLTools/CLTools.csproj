@@ -52,6 +52,7 @@
     <Compile Include="Class\SoundVolume\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\DisplayResolution\SetDisplayResolution.cs" />
+    <Compile Include="Cmdlet\SetScreenSaver.cs" />
     <Compile Include="Cmdlet\SoundVolume\AddSoundVolume.cs" />
     <Compile Include="Cmdlet\SoundVolume\SetSoundVolume.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
