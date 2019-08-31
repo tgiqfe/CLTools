@@ -50,6 +50,8 @@
     <Compile Include="Class\DisplayResolution\ChangeStatePNPDevice.cs" />
     <Compile Include="Class\DisplayResolution\MonitorRegistry.cs" />
     <Compile Include="Class\DisplayResolution\PNPDeviceID.cs" />
+    <Compile Include="Class\Environment\MachineSummary.cs" />
+    <Compile Include="Class\Environment\UserSummary.cs" />
     <Compile Include="Class\WindowsService\ServiceControl.cs" />
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
     <Compile Include="Class\DisplayResolution\DisplaySummary.cs" />
