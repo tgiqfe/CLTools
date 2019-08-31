@@ -52,9 +52,10 @@
     <Compile Include="Class\DisplayResolution\PNPDeviceID.cs" />
     <Compile Include="Class\WindowsService\ServiceControl.cs" />
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
-    <Compile Include="Class\SoundVolume\DisplaySummary.cs" />
+    <Compile Include="Class\DisplayResolution\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\DisplayResolution\SetDisplayResolution.cs" />
+    <Compile Include="Cmdlet\WindowsService\GetWindowsService.cs" />
     <Compile Include="Cmdlet\ScreenSaver\SetScreenSaver.cs" />
     <Compile Include="Cmdlet\WindowsService\SetWindowsService.cs" />
     <Compile Include="Cmdlet\SoundVolume\AddSoundVolume.cs" />
