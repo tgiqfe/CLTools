@@ -54,12 +54,12 @@
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
     <Compile Include="Class\DisplayResolution\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
-    <Compile Include="Cmdlet\DisplayResolution\SetDisplayResolution.cs" />
+    <Compile Include="Cmdlet\Display\SetDisplayResolution.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartWindowsService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartWindowsService.cs" />
     <Compile Include="Cmdlet\WindowsService\StopWindowsService.cs" />
     <Compile Include="Cmdlet\WindowsService\GetWindowsService.cs" />
-    <Compile Include="Cmdlet\ScreenSaver\SetScreenSaver.cs" />
+    <Compile Include="Cmdlet\Display\SetScreenSaver.cs" />
     <Compile Include="Cmdlet\WindowsService\SetWindowsService.cs" />
     <Compile Include="Cmdlet\SoundVolume\AddSoundVolume.cs" />
     <Compile Include="Cmdlet\SoundVolume\SetSoundVolume.cs" />

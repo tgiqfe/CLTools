@@ -8,6 +8,6 @@ namespace CLTools.Class
 {
     class DisplaySummary
     {
-
+        
     }
 }

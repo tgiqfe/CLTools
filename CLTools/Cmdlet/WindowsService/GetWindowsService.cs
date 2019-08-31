@@ -11,7 +11,7 @@ namespace CLTools.Cmdlet
     [Cmdlet(VerbsCommon.Get, "WindowsService")]
     public class GetWindowsService : PSCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 0), Alias("ServiceName")]
         public string Name { get; set; }
 
         protected override void ProcessRecord()

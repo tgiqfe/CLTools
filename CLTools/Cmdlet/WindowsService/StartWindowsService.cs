@@ -12,7 +12,7 @@ namespace CLTools.Cmdlet
     [Cmdlet(VerbsLifecycle.Start, "WindowsService")]
     public class StartWindowsService : PSCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 0), Alias("ServiceName")]
         public string Name { get; set; }
         [Parameter(Position = 1)]
         public SwitchParameter RunAsync { get; set; }

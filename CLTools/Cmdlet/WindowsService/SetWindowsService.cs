@@ -132,8 +132,8 @@ namespace CLTools.Cmdlet
         const string MANUAL = "Manual";
         const string DISABLED = "Disabled";
         const string DELAYED_AUTOMATIC = "DelayedAutomatic";
-        
-        [Parameter(Mandatory = true, Position = 0)]
+
+        [Parameter(Mandatory = true, Position = 0), Alias("ServiceName")]
         public string Name { get; set; }
         [Parameter]
         [ValidateSet(NONE, AUTOMATIC, MANUAL, DISABLED, DELAYED_AUTOMATIC)]

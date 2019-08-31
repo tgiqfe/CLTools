@@ -15,9 +15,9 @@ namespace CLTools.Cmdlet
     [Cmdlet(VerbsCommon.Set, "DisplayResolution")]
     public class SetDisplayResolution : PSCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 0), Alias("X")]
         public int Width { get; set; }
-        [Parameter(Mandatory = true, Position = 1)]
+        [Parameter(Mandatory = true, Position = 1), Alias("Y")]
         public int Height { get; set; }
         [Parameter(Mandatory = true)]
         public int[] DisplayNumbers { get; set; }
