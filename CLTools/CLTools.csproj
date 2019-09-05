@@ -11,7 +11,7 @@
     <AssemblyName>CLTools</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,7 +56,7 @@
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
     <Compile Include="Class\DisplayResolution\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
-    <Compile Include="Cmdlet\Display\SetDisplayResolution.cs" />
+    <Compile Include="Cmdlet\Display\SetResolution.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetSoundVolume.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartWindowsService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartWindowsService.cs" />

@@ -12,8 +12,8 @@ using CLTools.Class;
 
 namespace CLTools.Cmdlet
 {
-    [Cmdlet(VerbsCommon.Set, "DisplayResolution")]
-    public class SetDisplayResolution : PSCmdlet
+    [Cmdlet(VerbsCommon.Set, "Resolution")]
+    public class SetResolution : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0), Alias("X")]
         public int Width { get; set; }

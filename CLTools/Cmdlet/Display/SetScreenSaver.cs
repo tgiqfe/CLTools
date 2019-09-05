@@ -74,13 +74,16 @@ namespace CLTools.Cmdlet
                 else if (None)
                 {
                     //  スクリーンセーバー無し
-                    regKey.DeleteValue("SCRNSAVE.EXE");
+                    if (regKey.GetValueNames().Any(x => x.Equals("SCRNSAVE.EXE", StringComparison.OrdinalIgnoreCase)))
+                    {
+                        regKey.DeleteValue("SCRNSAVE.EXE");
+                    }
                 }
 
                 //  再開時にロック
-                if(ScreenLock != null)
+                if (ScreenLock != null)
                 {
-                    int isLock = (bool)ScreenLock ? 1: 0;
+                    int isLock = (bool)ScreenLock ? 1 : 0;
                     regKey.SetValue("ScreenSaverIsSecure", isLock.ToString(), RegistryValueKind.String);
                     SystemParametersInfo(SPI.SPI_SETSCREENSAVESECURE, (uint)isLock, ref tempRes, SPIF.SPIF_SENDCHANGE);
                 }
