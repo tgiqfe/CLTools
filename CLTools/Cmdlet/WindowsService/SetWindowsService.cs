@@ -141,32 +141,49 @@ namespace CLTools.Cmdlet
 
         protected override void ProcessRecord()
         {
+            /*
+            ServiceController[] scs = null;
+            if (Name.Contains("*"))
+            {
+                foreach (ServiceController sc in ServiceController.GetServices())
+                {
+                    if(sc.ServiceName)
+                }
+            }
+            else
+            {
+                scs = new ServiceController[] { ServiceControl.GetServiceController(Name) };
+            }
             ServiceController serviceController = ServiceControl.GetServiceController(Name);
+            */
 
-            IntPtr serviceManagerHandle = OpenServiceManagerHandle();
-            IntPtr serviceHandle = OpenServiceHandle(serviceController, serviceManagerHandle);
+            foreach (ServiceController serviceController in ServiceControl.GetServiceController(Name))
+            {
+                IntPtr serviceManagerHandle = OpenServiceManagerHandle();
+                IntPtr serviceHandle = OpenServiceHandle(serviceController, serviceManagerHandle);
 
-            try
-            {
-                if (StartupType == DELAYED_AUTOMATIC)
+                try
                 {
-                    ChangeServiceStartType(serviceHandle, AUTOMATIC);
-                    ChangeDelayedAutoStart(serviceHandle, true);
+                    if (StartupType == DELAYED_AUTOMATIC)
+                    {
+                        ChangeServiceStartType(serviceHandle, AUTOMATIC);
+                        ChangeDelayedAutoStart(serviceHandle, true);
+                    }
+                    else
+                    {
+                        ChangeDelayedAutoStart(serviceHandle, false);
+                        ChangeServiceStartType(serviceHandle, StartupType);
+                    }
                 }
-                else
+                catch { }
+                if (serviceHandle != IntPtr.Zero)
                 {
-                    ChangeDelayedAutoStart(serviceHandle, false);
-                    ChangeServiceStartType(serviceHandle, StartupType);
+                    CloseServiceHandle(serviceHandle);
                 }
-            }
-            catch { }
-            if (serviceHandle != IntPtr.Zero)
-            {
-                CloseServiceHandle(serviceHandle);
-            }
-            if (serviceHandle != IntPtr.Zero)
-            {
-                CloseServiceHandle(serviceManagerHandle);
+                if (serviceHandle != IntPtr.Zero)
+                {
+                    CloseServiceHandle(serviceManagerHandle);
+                }
             }
         }
     }

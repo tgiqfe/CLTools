@@ -19,16 +19,20 @@ namespace CLTools.Cmdlet
 
         protected override void ProcessRecord()
         {
-            ServiceController sc = ServiceControl.GetServiceController(Name);
-            if(sc.Status == ServiceControllerStatus.Stopped)
+            List<ServiceSummary> scList = new List<ServiceSummary>();
+            foreach (ServiceController sc in ServiceControl.GetServiceController(Name))
             {
-                sc.Start();
-                if (!RunAsync)
+                scList.Add(new ServiceSummary(sc));
+                if (sc.Status == ServiceControllerStatus.Stopped)
                 {
-                    sc.WaitForStatus(ServiceControllerStatus.Running);
+                    sc.Start();
+                    if (!RunAsync)
+                    {
+                        sc.WaitForStatus(ServiceControllerStatus.Running);
+                    }
                 }
             }
-            WriteObject(new ServiceSummary(sc));
+            WriteObject(scList);
         }
     }
 }

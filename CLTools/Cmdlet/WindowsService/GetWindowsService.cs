@@ -16,7 +16,9 @@ namespace CLTools.Cmdlet
 
         protected override void ProcessRecord()
         {
-            WriteObject(new ServiceSummary(ServiceControl.GetServiceController(Name)));
+            List<ServiceSummary> scList = new List<ServiceSummary>(
+                ServiceControl.GetServiceController(Name).Select(x => new ServiceSummary(x)));
+            WriteObject(scList);
         }
     }
 }
