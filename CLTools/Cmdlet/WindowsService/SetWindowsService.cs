@@ -138,6 +138,10 @@ namespace CLTools.Cmdlet
         [Parameter]
         [ValidateSet(NONE, AUTOMATIC, MANUAL, DISABLED, DELAYED_AUTOMATIC)]
         public string StartupType { get; set; } = NONE;
+        [Parameter]
+        public SwitchParameter IgnoreServiceName { get; set; }
+        [Parameter]
+        public SwitchParameter IgnoreDisplayName { get; set; }
 
         protected override void ProcessRecord()
         {
@@ -157,7 +161,8 @@ namespace CLTools.Cmdlet
             ServiceController serviceController = ServiceControl.GetServiceController(Name);
             */
 
-            foreach (ServiceController serviceController in ServiceControl.GetServiceController(Name))
+            foreach (ServiceController serviceController in ServiceControl.GetServiceController(
+                Name, IgnoreServiceName, IgnoreDisplayName))
             {
                 IntPtr serviceManagerHandle = OpenServiceManagerHandle();
                 IntPtr serviceHandle = OpenServiceHandle(serviceController, serviceManagerHandle);

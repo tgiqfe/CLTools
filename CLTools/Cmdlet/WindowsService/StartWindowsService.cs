@@ -16,11 +16,16 @@ namespace CLTools.Cmdlet
         public string Name { get; set; }
         [Parameter(Position = 1)]
         public SwitchParameter RunAsync { get; set; }
+        [Parameter]
+        public SwitchParameter IgnoreServiceName { get; set; }
+        [Parameter]
+        public SwitchParameter IgnoreDisplayName { get; set; }
 
         protected override void ProcessRecord()
         {
             List<ServiceSummary> scList = new List<ServiceSummary>();
-            foreach (ServiceController sc in ServiceControl.GetServiceController(Name))
+            foreach (ServiceController sc in ServiceControl.GetServiceController(
+                Name, IgnoreServiceName, IgnoreDisplayName))
             {
                 scList.Add(new ServiceSummary(sc));
                 if (sc.Status == ServiceControllerStatus.Stopped)
