@@ -29,6 +29,8 @@ namespace CLTools.Class
         }
         */
 
+
+
         public static ServiceController[] GetServiceController(string serviceName)
         {
             if (serviceName.Contains("*"))
@@ -53,6 +55,55 @@ namespace CLTools.Class
                 ServiceController retSV = ServiceController.GetServices().FirstOrDefault(
                     x => x.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
                 if (retSV == null)
+                {
+                    retSV = ServiceController.GetServices().FirstOrDefault(
+                        x => x.DisplayName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
+                }
+                return new ServiceController[] { retSV };
+            }
+        }
+
+        public static ServiceController[] GetServiceController(string serviceName, bool ignoreServiceName, bool ignoreDiplayName)
+        {
+            if (serviceName.Contains("*"))
+            {
+                string patternString = Regex.Replace(serviceName, ".",
+                x =>
+                {
+                    string y = x.Value;
+                    if (y.Equals("?")) { return "."; }
+                    else if (y.Equals("*")) { return ".*"; }
+                    else { return Regex.Escape(y); }
+                });
+                if (!patternString.StartsWith("*")) { patternString = "^" + patternString; }
+                if (!patternString.EndsWith("*")) { patternString = patternString + "$"; }
+                Regex regPattern = new Regex(patternString, RegexOptions.IgnoreCase);
+                if (ignoreServiceName && !ignoreDiplayName)
+                {
+                    return ServiceController.GetServices().Where(x =>
+                        regPattern.IsMatch(x.DisplayName)).ToArray();
+                }
+                else if (!ignoreServiceName && ignoreDiplayName)
+                {
+                    return ServiceController.GetServices().Where(x =>
+                           regPattern.IsMatch(x.ServiceName)).ToArray();
+                }
+                else if (!ignoreServiceName && !ignoreDiplayName)
+                {
+                    return ServiceController.GetServices().Where(x =>
+                        regPattern.IsMatch(x.ServiceName) || regPattern.IsMatch(x.DisplayName)).ToArray();
+                }
+                return new ServiceController[] { null };
+            }
+            else
+            {
+                ServiceController retSV = null;
+                if (!ignoreServiceName)
+                {
+                    retSV = ServiceController.GetServices().FirstOrDefault(
+                    x => x.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
+                }
+                if (retSV == null && !ignoreDiplayName)
                 {
                     retSV = ServiceController.GetServices().FirstOrDefault(
                         x => x.DisplayName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
