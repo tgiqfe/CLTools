@@ -7,8 +7,8 @@ using System.Management.Automation;
 
 namespace CLTools.Cmdlet
 {
-    [Cmdlet(VerbsCommon.Get, "WindowsUser")]
-    public class GetWindowsUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Get, "CLUser")]
+    public class GetCLUser : PSCmdlet
     {
         protected override void ProcessRecord()
         {
