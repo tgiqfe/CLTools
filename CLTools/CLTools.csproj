@@ -57,6 +57,7 @@
     <Compile Include="Class\DisplayResolution\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetResolution.cs" />
+    <Compile Include="Cmdlet\GetWindowsUser.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetSoundVolume.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartWindowsService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartWindowsService.cs" />
