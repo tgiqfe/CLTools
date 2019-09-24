@@ -9,7 +9,7 @@ using CLTools.Class;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Get, "SoundVolume")]
-    public class GetSoundVolume : PSCmdlet
+    public class GetCLVolume : PSCmdlet
     {
         protected override void ProcessRecord()
         {

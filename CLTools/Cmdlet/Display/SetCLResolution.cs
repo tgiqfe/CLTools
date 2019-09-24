@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
 using System.Management.Automation;
 using CLTools.Class;
 
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Set, "Resolution")]
-    public class SetResolution : PSCmdlet
+    public class SetCLResolution : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0), Alias("X")]
         public int Width { get; set; }

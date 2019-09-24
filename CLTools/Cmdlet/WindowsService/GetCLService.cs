@@ -9,7 +9,7 @@ using System.Management.Automation;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Get, "WindowsService")]
-    public class GetWindowsService : PSCmdlet
+    public class GetCLService : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0), Alias("ServiceName")]
         public string Name { get; set; }

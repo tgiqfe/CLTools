@@ -9,7 +9,7 @@ using CLTools.Class;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Add, "SoundVolume")]
-    public class AddSoundVolume : PSCmdlet
+    public class AddCLVolume : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0)]
         public int Level { get; set; }

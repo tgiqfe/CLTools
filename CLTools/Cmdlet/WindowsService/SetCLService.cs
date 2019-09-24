@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Set, "WindowsService")]
-    public class SetWindowsService : PSCmdlet
+    public class SetCLService : PSCmdlet
     {
         #region SetStartupType
         [DllImport("advapi32.dll", EntryPoint = "OpenSCManagerW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]

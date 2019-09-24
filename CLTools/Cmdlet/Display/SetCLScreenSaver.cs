@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Management.Automation;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
@@ -10,7 +8,7 @@ using Microsoft.Win32;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Set, "ScreenSaver")]
-    public class SetScreenSaver : PSCmdlet
+    public class SetCLScreenSaver : PSCmdlet
     {
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

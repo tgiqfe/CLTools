@@ -10,7 +10,7 @@ using CLTools.Class;
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsLifecycle.Restart, "WindowsService")]
-    public class RestartWindowsService : PSCmdlet
+    public class RestartCLService : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0), Alias("ServiceName")]
         public string Name { get; set; }
