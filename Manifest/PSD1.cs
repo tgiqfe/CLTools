@@ -12,10 +12,16 @@ namespace Manifest
 {
     class PSD1
     {
-        public static void Create(string dllFile, string cmdletDir, string outputFile)
+        const string EXTENSION = ".psd1";
+
+        public static void Create(string projectName, string outputDir)
         {
-            //  CmdletsToExportの為のコマンドレットの一覧を取得
+            string dllFile = Path.Combine(outputDir, projectName + ".dll");
+            string outputFile = Path.Combine(outputDir, projectName + EXTENSION);
+            if (!File.Exists(dllFile)) { return; }
+
             List<string> CmdletsToExport = new List<string>();
+            string cmdletDir = @"..\..\..\" + projectName + @"\Cmdlet";
             foreach (string csFile in Directory.GetFiles(cmdletDir, "*.cs", SearchOption.AllDirectories))
             {
                 using (StreamReader sr = new StreamReader(csFile, Encoding.UTF8))
@@ -37,13 +43,13 @@ namespace Manifest
 
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(dllFile);
 
-            string RootModule = "CLTools.dll";
+            string RootModule = Path.GetFileName(dllFile);
             string ModuleVersion = fvi.FileVersion;
-            string Guid = "AD6A4B7D-EC8A-430F-A04B-E2169FC2E660";   //  GUIDは固定で
+            string Guid = "75e60d76-7594-4f1b-af01-a2629646e1ec";
             string Author = "q";
             string CompanyName = "q";
             string Copyright = fvi.LegalCopyright;
-            string Description = "Client Tool";
+            string Description = "Run enumerated script";
 
             string manifestString = string.Format(@"@{{
 RootModule = ""{0}""
@@ -60,7 +66,6 @@ CmdletsToExport = @(
 RootModule, ModuleVersion, Guid, Author, CompanyName, Copyright, Description,
 string.Join("\", \"", CmdletsToExport)
 );
-            Console.WriteLine(outputFile);
             using (StreamWriter sw = new StreamWriter(outputFile, false, Encoding.UTF8))
             {
                 sw.WriteLine(manifestString);
