@@ -18,7 +18,6 @@ namespace CLTools.Class
         public string Identity { get; set; }
         public string FullName { get; set; }
         public string Description { get; set; }
-
         public string SID { get; set; }
 
         public bool MustChangePassword { get; set; }
@@ -27,7 +26,6 @@ namespace CLTools.Class
         public bool Enabled { get; set; }
         public bool Locked { get; set; }
 
-        public string[] MemberOf { get; set; }
         public string ProfilePath { get; set; }
         public string LogonScript { get; set; }
         public string LocalPath { get; set; }
@@ -59,23 +57,27 @@ namespace CLTools.Class
                     this.Description = mo["Description"].ToString();
                     this.SID = mo["SID"].ToString();
 
+                    this.UserType = (bool)mo["LocalAccount"] ? UserType.LocalAccount : UserType.DomainAccount;
+                    if (new ManagementClass("Win32_SystemAccount").
+                        GetInstances().
+                        OfType<ManagementObject>().
+                        Any(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        UserType |= UserType.SystemAccount;
+                    }
+
+                    //this.MustChangePassword = (bool)mo["PasswordRequired"];
+                    this.CannotChangePassword = !(bool)mo["PasswordChangeable"];
+                    this.PasswordNeverExpires = !(bool)mo["PasswordExpires"];
+                    this.MustChangePassword = !(CannotChangePassword || PasswordNeverExpires);
+
+                    this.Enabled = !(bool)mo["Disabled"];
+                    this.Locked = (bool)mo["Lockout"];
 
 
 
                 }
-                
-                /*
-                foreach (ManagementObject moo in new ManagementClass("Win32_UserAccount").
-                    GetInstances().
-                    OfType<ManagementObject>().
-                    Where(x => x["Name"] is string))
-                {
-                    Console.WriteLine(moo["Name"]);
-                }
-                */
             }
         }
-
-
     }
 }
