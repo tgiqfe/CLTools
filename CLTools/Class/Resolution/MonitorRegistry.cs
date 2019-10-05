@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace CLTools.Class
 {
-    class MonitorRegistry
+    public class MonitorRegistry
     {
         //  クラスパラメータ
         const string REG_CONFIGURATION = @"SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration";
@@ -93,24 +93,6 @@ namespace CLTools.Class
                 }
                 catch { }
             }
-        }
-    }
-
-    //  モニター情報格納用クラス
-    class Monitor
-    {
-        public string MonitorID { get; set; }
-        public string MonitorID_pre { get; set; }
-        public string MonitorID_suf { get; set; }
-        public DateTime TimeStamp { get; set; }
-
-        public Monitor() { }
-        public Monitor(string deviceID, long timeStamp)
-        {
-            this.MonitorID = deviceID;
-            this.MonitorID_pre = deviceID.Substring(0, deviceID.IndexOf("^"));
-            this.MonitorID_suf = deviceID.Substring(deviceID.IndexOf("^") + 1);
-            this.TimeStamp = DateTime.FromFileTime(timeStamp);
         }
     }
 }

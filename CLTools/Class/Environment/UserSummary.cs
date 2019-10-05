@@ -26,6 +26,7 @@ namespace CLTools.Class
         public bool Enabled { get; set; }
         public bool Locked { get; set; }
 
+        public string[] MemberOf { get; set; }
         public string ProfilePath { get; set; }
         public string LogonScript { get; set; }
         public string LocalPath { get; set; }
@@ -43,41 +44,42 @@ namespace CLTools.Class
         /// </summary>
         public void Load()
         {
-            if (!string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name)) { return; }
+
+            ManagementObject mo = new ManagementClass("Win32_UserAccount").
+                GetInstances().
+                OfType<ManagementObject>().
+                Where(x => x["Name"] is string).
+                FirstOrDefault(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase));
+            if (mo != null)
             {
-                ManagementObject mo = new ManagementClass("Win32_UserAccount").
+                this.Identity = mo["Caption"].ToString();
+                this.FullName = mo["FullName"].ToString();
+                this.Description = mo["Description"].ToString();
+                this.SID = mo["SID"].ToString();
+
+                this.UserType = (bool)mo["LocalAccount"] ? UserType.LocalAccount : UserType.DomainAccount;
+                if (new ManagementClass("Win32_SystemAccount").
                     GetInstances().
                     OfType<ManagementObject>().
-                    Where(x => x["Name"] is string).
-                    FirstOrDefault(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase));
-                if (mo != null)
+                    Any(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase)))
                 {
-                    this.Identity = mo["Caption"].ToString();
-                    this.FullName = mo["FullName"].ToString();
-                    this.Description = mo["Description"].ToString();
-                    this.SID = mo["SID"].ToString();
-
-                    this.UserType = (bool)mo["LocalAccount"] ? UserType.LocalAccount : UserType.DomainAccount;
-                    if (new ManagementClass("Win32_SystemAccount").
-                        GetInstances().
-                        OfType<ManagementObject>().
-                        Any(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        UserType |= UserType.SystemAccount;
-                    }
-
-                    //this.MustChangePassword = (bool)mo["PasswordRequired"];
-                    this.CannotChangePassword = !(bool)mo["PasswordChangeable"];
-                    this.PasswordNeverExpires = !(bool)mo["PasswordExpires"];
-                    this.MustChangePassword = !(CannotChangePassword || PasswordNeverExpires);
-
-                    this.Enabled = !(bool)mo["Disabled"];
-                    this.Locked = (bool)mo["Lockout"];
-
-
-
+                    UserType |= UserType.SystemAccount;
                 }
+
+                //this.MustChangePassword = (bool)mo["PasswordRequired"];
+                this.CannotChangePassword = !(bool)mo["PasswordChangeable"];
+                this.PasswordNeverExpires = !(bool)mo["PasswordExpires"];
+                this.MustChangePassword = !(CannotChangePassword || PasswordNeverExpires);
+
+                this.Enabled = !(bool)mo["Disabled"];
+                this.Locked = (bool)mo["Lockout"];
             }
+
+            //  net user コマンドの結果から、
+            //  ユーザープロファイル、ログオンスクリプト、ホームディレクトリ、所属しているローカルグループ
+            //  ↑は取得可能。次回外部コマンドから出力結果を取得してパラメータをセットする実装を
+
         }
     }
 }
