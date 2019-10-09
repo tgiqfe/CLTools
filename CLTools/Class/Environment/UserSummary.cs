@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management;
 
-namespace CLTools.Class
+namespace CLTools
 {
     [Flags]
     public enum UserType { Unknown = 0, SystemAccount = 1, LocalAccount = 2, DomainAccount = 4 };
@@ -26,11 +26,11 @@ namespace CLTools.Class
         public bool Enabled { get; set; }
         public bool Locked { get; set; }
 
-        public string[] MemberOf { get; set; }
-        public string ProfilePath { get; set; }
-        public string LogonScript { get; set; }
-        public string LocalPath { get; set; }
-        public string Connect { get; set; }
+        public string[] MemberOf { get; set; } = new string[] { "未実装" };
+        public string ProfilePath { get; set; } = "未実装";
+        public string LogonScript { get; set; } = "未実装";
+        public string LocalPath { get; set; } = "未実装";
+        public string Connect { get; set; } = "未実装";
 
         public UserSummary() : this(Environment.UserName) { }
         public UserSummary(string name)

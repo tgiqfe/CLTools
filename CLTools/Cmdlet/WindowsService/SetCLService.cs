@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 using System.ServiceProcess;
 using System.Runtime.InteropServices;
-using CLTools.Class;
 using System.ComponentModel;
 
 namespace CLTools.Cmdlet

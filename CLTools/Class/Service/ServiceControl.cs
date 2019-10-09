@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceProcess;
 using System.Text.RegularExpressions;
 
-namespace CLTools.Class
+namespace CLTools
 {
     class ServiceControl
     {

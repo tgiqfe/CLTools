@@ -7,16 +7,19 @@ using System.Management.Automation;
 
 namespace CLTools.Cmdlet
 {
-    [Cmdlet(VerbsCommon.Get, "CLUser")]
-    public class GetCLUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Set, "CLUser")]
+    public class SetCLUser : PSCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory=true)]
         public string Name { get; set; }
+        [Parameter]
+        public bool Enabled { get; set; }
 
         protected override void ProcessRecord()
         {
             UserSummary user = new UserSummary(Name);
-            WriteObject(user);
+
         }
+
     }
 }

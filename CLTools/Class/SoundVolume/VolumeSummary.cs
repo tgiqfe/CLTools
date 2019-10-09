@@ -18,8 +18,8 @@ namespace CLTools
 
         public void Load()
         {
-            this.Level = (int)(Math.Round(Class.Sound.GetVolume(), 2, MidpointRounding.AwayFromZero) * 100);
-            this.IsMute = Class.Sound.GetMute();
+            this.Level = (int)(Math.Round(Sound.GetVolume(), 2, MidpointRounding.AwayFromZero) * 100);
+            this.IsMute = Sound.GetMute();
         }
     }
 }

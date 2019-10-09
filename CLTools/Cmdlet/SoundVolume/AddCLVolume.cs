@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
-using CLTools.Class;
 
 namespace CLTools.Cmdlet
 {

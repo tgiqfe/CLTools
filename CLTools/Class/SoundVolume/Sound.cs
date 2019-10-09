@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 //  参考URL)
 //  http://asaconsultant.blogspot.jp/2014/05/toying-with-audio-in-powershell.html
 
-namespace CLTools.Class
+namespace CLTools
 {
     [Guid("5CDF2C82-841E-4546-9722-0CF74078229A"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     interface IAudioEndpointVolume

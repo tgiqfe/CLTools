@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using System.Management;
 using System.Diagnostics;
 
-namespace CLTools.Class
+namespace CLTools
 {
     public class ServiceSummary
     {

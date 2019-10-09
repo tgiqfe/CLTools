@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Management;
 using System.Threading;
 
-namespace CLTools.Class
+namespace CLTools
 {
     class ChangeStatePNPDevice
     {

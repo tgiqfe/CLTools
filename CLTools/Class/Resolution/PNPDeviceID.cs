@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management;
 
-namespace CLTools.Class
+namespace CLTools
 {
     class PNPDeviceID
     {

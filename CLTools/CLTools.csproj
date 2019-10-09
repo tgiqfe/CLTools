@@ -58,6 +58,7 @@
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
     <Compile Include="Cmdlet\Environment\GetCLUser.cs" />
+    <Compile Include="Cmdlet\Environment\SetCLUser.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartCLService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartCLService.cs" />

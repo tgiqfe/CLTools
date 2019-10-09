@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 
-namespace CLTools.Class
+namespace CLTools
 {
     public class MonitorRegistry
     {

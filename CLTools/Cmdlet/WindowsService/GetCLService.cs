@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CLTools.Class;
 using System.Management.Automation;
 
 namespace CLTools.Cmdlet
