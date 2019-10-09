@@ -8,8 +8,8 @@ using System.Management;
 
 namespace CLTools.Cmdlet
 {
-    [Cmdlet(VerbsCommon.Remove, "UserProfile")]
-    public class RemoveUserProfile : PSCmdlet
+    [Cmdlet(VerbsCommon.Remove, "CLUserProfile")]
+    public class RemoveCLUserProfile : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0)]
         public string Name { get; set; }

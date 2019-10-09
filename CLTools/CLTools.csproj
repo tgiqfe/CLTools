@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -59,7 +61,8 @@
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
     <Compile Include="Cmdlet\Environment\GetCLUser.cs" />
     <Compile Include="Cmdlet\Environment\SetCLUser.cs" />
-    <Compile Include="Cmdlet\Environment\RemoveUserProfile.cs" />
+    <Compile Include="Cmdlet\Environment\RemoveCLUserProfile.cs" />
+    <Compile Include="Cmdlet\Environment\AddCLUser.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartCLService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartCLService.cs" />

@@ -20,7 +20,7 @@ namespace Manifest
             string outputFile = Path.Combine(outputDir, projectName + EXTENSION);
             if (!File.Exists(dllFile)) { return; }
 
-            List<string> CmdletsToExport = new List<string>();
+            List<string> CmdletsToExportList = new List<string>();
             string cmdletDir = @"..\..\..\" + projectName + @"\Cmdlet";
             foreach (string csFile in Directory.GetFiles(cmdletDir, "*.cs", SearchOption.AllDirectories))
             {
@@ -35,9 +35,21 @@ namespace Manifest
                                 readLine.IndexOf(".") + 1, readLine.IndexOf(",") - readLine.IndexOf(".") - 1);
                             string cmdSuf = readLine.Substring(
                                 readLine.IndexOf("\"") + 1, readLine.LastIndexOf("\"") - readLine.IndexOf("\"") - 1);
-                            CmdletsToExport.Add(cmdPre + "-" + cmdSuf);
+                            CmdletsToExportList.Add(cmdPre + "-" + cmdSuf);
                         }
                     }
+                }
+            }
+            string CmdletsToExport = "\"" + string.Join("\", \"", CmdletsToExportList) + "\"";
+            int cursor = 0;
+            int commaCount = 0;
+            while ((cursor = CmdletsToExport.IndexOf(",", cursor)) >= 0)
+            {
+                cursor += 2;
+                commaCount++;
+                if ((commaCount % 4) == 0)
+                {
+                    CmdletsToExport = CmdletsToExport.Insert(cursor, "\r\n");
                 }
             }
 
@@ -60,11 +72,10 @@ CompanyName = ""{4}""
 Copyright = ""{5}""
 Description = ""{6}""
 CmdletsToExport = @(
-""{7}""
-)
+{7})
 }}",
 RootModule, ModuleVersion, Guid, Author, CompanyName, Copyright, Description,
-string.Join("\", \"", CmdletsToExport)
+CmdletsToExport
 );
             using (StreamWriter sw = new StreamWriter(outputFile, false, Encoding.UTF8))
             {
