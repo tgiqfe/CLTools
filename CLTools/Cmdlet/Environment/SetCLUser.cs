@@ -4,21 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using System.Management;
 
 namespace CLTools.Cmdlet
 {
     [Cmdlet(VerbsCommon.Set, "CLUser")]
     public class SetCLUser : PSCmdlet
     {
-        [Parameter(Mandatory=true)]
+        [Parameter(Mandatory=true, Position = 0)]
         public string Name { get; set; }
         [Parameter]
-        public bool Enabled { get; set; }
+        public bool? Enabled { get; set; }
 
         protected override void ProcessRecord()
         {
-            UserSummary user = new UserSummary(Name);
-
+            if(Enabled != null)
+            {
+                ManagementObject mo = new ManagementClass("Win32_UserAccount").
+                    GetInstances().
+                    OfType<ManagementObject>().
+                    FirstOrDefault(x => x["Name"].ToString().Equals(Name, StringComparison.OrdinalIgnoreCase));
+                if (mo != null)
+                {
+                    mo.SetPropertyValue("Disabled", !(bool)Enabled);
+                    mo.Put();
+                }
+            }
         }
 
     }
