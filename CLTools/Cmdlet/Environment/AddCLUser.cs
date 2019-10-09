@@ -57,7 +57,8 @@ namespace CLTools.Cmdlet
             UserPrincipal user_p = new UserPrincipal(new PrincipalContext(ContextType.Machine));
             user_p.Name = User;
             user_p.SetPassword(Password);
-            user_p.DisplayName = FullName;   //  ローカルユーザーの場合、DiplayNameがフルネームの模様
+            //  フルネームの設定箇所が見つからない・・・
+            //  ユーザー作成後にWMIから変更したほうが良いのかも
             user_p.Enabled = true;
             user_p.PasswordNeverExpires = true;
             user_p.Description = Description;
