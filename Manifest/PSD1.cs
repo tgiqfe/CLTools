@@ -7,22 +7,22 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Manifest
 {
+    //  v0.01.006
     class PSD1
     {
-        const string EXTENSION = ".psd1";
-
-        public static void Create(string projectName, string outputDir)
+        public static void Create(ProjectInfo info)
         {
-            string dllFile = Path.Combine(outputDir, projectName + ".dll");
-            string outputFile = Path.Combine(outputDir, projectName + EXTENSION);
-            if (!File.Exists(dllFile)) { return; }
+            if (!File.Exists(info.DllFile)) { return; }
 
+            string dllFile_absolute = Path.GetFullPath(info.DllFile);
+
+            //  Cmdletを探してセット
             List<string> CmdletsToExportList = new List<string>();
-            string cmdletDir = @"..\..\..\" + projectName + @"\Cmdlet";
-            foreach (string csFile in Directory.GetFiles(cmdletDir, "*.cs", SearchOption.AllDirectories))
+            foreach (string csFile in Directory.GetFiles(info.CmdletDir, "*.cs", SearchOption.AllDirectories))
             {
                 using (StreamReader sr = new StreamReader(csFile, Encoding.UTF8))
                 {
@@ -31,6 +31,10 @@ namespace Manifest
                     {
                         if (Regex.IsMatch(readLine, @"^\s*\[Cmdlet\(Verbs"))
                         {
+                            if (Regex.IsMatch(readLine, @"\/\/\s*Ignore"))
+                            {
+                                break;
+                            }
                             string cmdPre = readLine.Substring(
                                 readLine.IndexOf(".") + 1, readLine.IndexOf(",") - readLine.IndexOf(".") - 1);
                             string cmdSuf = readLine.Substring(
@@ -40,28 +44,31 @@ namespace Manifest
                     }
                 }
             }
-            string CmdletsToExport = "\"" + string.Join("\", \"", CmdletsToExportList) + "\"";
-            int cursor = 0;
-            int commaCount = 0;
-            while ((cursor = CmdletsToExport.IndexOf(",", cursor)) >= 0)
+
+            //  Format.ps1xmlを探してセット
+            List<string> FormatsToProcessList = new List<string>();
+            if (Directory.Exists(info.FormatDir))
             {
-                cursor += 2;
-                commaCount++;
-                if ((commaCount % 4) == 0)
+                foreach (string formatFile in Directory.GetFiles(info.FormatDir, "*.ps1xml"))
                 {
-                    CmdletsToExport = CmdletsToExport.Insert(cursor, "\r\n");
+                    FormatsToProcessList.Add(Path.GetFileName(formatFile));
                 }
             }
 
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(dllFile);
+            //  バージョン取得
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(info.DllFile);
 
-            string RootModule = Path.GetFileName(dllFile);
+            //  GUID取得
+            GuidAttribute attr =
+                Attribute.GetCustomAttribute(Assembly.LoadFile(dllFile_absolute), typeof(GuidAttribute)) as GuidAttribute;
+
+            string RootModule = Path.GetFileName(info.DllFile);
             string ModuleVersion = fvi.FileVersion;
-            string Guid = "75e60d76-7594-4f1b-af01-a2629646e1ec";
-            string Author = "q";
-            string CompanyName = "q";
-            string Copyright = fvi.LegalCopyright;
-            string Description = "Run enumerated script";
+            string Guid = attr.Value;
+            string Author = info.Author;
+            string CompanyName = info.CompanyName;
+            string Copyright = string.IsNullOrEmpty(info.Copyright) ? fvi.LegalCopyright : info.Copyright;
+            string Description = info.Description;
 
             string manifestString = string.Format(@"@{{
 RootModule = ""{0}""
@@ -72,12 +79,15 @@ CompanyName = ""{4}""
 Copyright = ""{5}""
 Description = ""{6}""
 CmdletsToExport = @(
-{7})
+  ""{7}""
+)
+FormatsToProcess = @({8})
 }}",
 RootModule, ModuleVersion, Guid, Author, CompanyName, Copyright, Description,
-CmdletsToExport
+string.Join("\",\r\n  \"", CmdletsToExportList),
+FormatsToProcessList.Count > 0 ? "\r\n  \"" + string.Join("\",\r\n  \"", FormatsToProcessList) + "\"\r\n" : ""
 );
-            using (StreamWriter sw = new StreamWriter(outputFile, false, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(info.Psd1File, false, Encoding.UTF8))
             {
                 sw.WriteLine(manifestString);
             }
