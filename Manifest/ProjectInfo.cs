@@ -21,6 +21,7 @@ namespace Manifest
         public string ModuleZip { get { return string.Format(@"..\..\..\{0}\bin\{0}.zip", PROJECT_NAME); } }
         public string ScriptDir { get { return string.Format(@"..\..\..\{0}\Script", PROJECT_NAME); } }
         public string FormatDir { get { return string.Format(@"..\..\..\{0}\Format", PROJECT_NAME); } }
+        public string HelpDir { get { return string.Format(@"..\..\..\{0}\Help", PROJECT_NAME); } }
         public string CmdletDir { get { return string.Format(@"..\..\..\{0}\Cmdlet", PROJECT_NAME); } }
 
         public string DllFile { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.dll", PROJECT_NAME, Mode); } }
@@ -31,6 +32,11 @@ namespace Manifest
         public string Author { get; set; } = "q";
         public string CompanyName { get; set; } = "q";
         public string Copyright { get; set; } = null;
+
+        public string[] ExcludeCmdlet { get; set; } = new string[]{
+            "コマンドレット登録除外対象の*.cs"
+        };
+        public ExternalPackage[] ExternalPackages { get; set; }     //  = new ExternalPackage[]{ new ExternalPackage() { その他追加パッケージ } }
 
         public ProjectInfo() { }
     }

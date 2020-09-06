@@ -11,26 +11,11 @@ namespace CLTools
     class ServiceControl
     {
         /// <summary>
-        /// サービス名からServiceControllerを取得
+        /// サービス名orディスプレイ名からServiceControllerを取得。
+        /// ワイルドカード指定も可
         /// </summary>
-        /// <param name="serviceName">ServiceName, DisplayNameどちらでも可。ServiceName優先</param>
-        /// <returns>ServiceControllerインスタンス。指定した名前に一致したサービスが無い場合はnull</returns>
-        /*
-        public static ServiceController GetServiceController(string serviceName)
-        {
-            ServiceController retSV = ServiceController.GetServices().FirstOrDefault(
-                x => x.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
-            if (retSV == null)
-            {
-                retSV = ServiceController.GetServices().FirstOrDefault(
-                    x => x.DisplayName.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
-            }
-            return retSV;
-        }
-        */
-
-
-
+        /// <param name="serviceName"></param>
+        /// <returns></returns>
         public static ServiceController[] GetServiceController(string serviceName)
         {
             if (serviceName.Contains("*"))

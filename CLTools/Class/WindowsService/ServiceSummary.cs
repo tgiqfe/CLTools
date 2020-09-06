@@ -66,7 +66,7 @@ namespace CLTools
             {
                 this.StartupType = "DelayedAutomatic";
             }
-            //  Win32APIからのほうがスマートなので、レジストリから調べる案は廃止
+            //  Win32APIからのほうがスマートなので、レジストリから調べる案は廃止。備忘録として残しておきます。
             /*
             int delayedAutoStart = (int)Registry.GetValue(
                 @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" + sc.ServiceName,

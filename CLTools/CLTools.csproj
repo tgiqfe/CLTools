@@ -49,14 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Resolution\ChangeStatePNPDevice.cs" />
-    <Compile Include="Class\Resolution\MonitorRegistry.cs" />
-    <Compile Include="Class\Resolution\PNPDeviceID.cs" />
+    <Compile Include="Class\Display\ChangeStatePNPDevice.cs" />
+    <Compile Include="Class\Display\MonitorRegistry.cs" />
+    <Compile Include="Class\Display\PNPDeviceID.cs" />
     <Compile Include="Class\Environment\MachineSummary.cs" />
     <Compile Include="Class\Environment\UserSummary.cs" />
     <Compile Include="Class\Service\ServiceControl.cs" />
     <Compile Include="Class\Service\ServiceSummary.cs" />
-    <Compile Include="Class\Resolution\DisplaySummary.cs" />
+    <Compile Include="Class\Display\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
     <Compile Include="Cmdlet\Environment\GetCLUser.cs" />
@@ -72,10 +72,13 @@
     <Compile Include="Cmdlet\WindowsService\SetCLService.cs" />
     <Compile Include="Cmdlet\SoundVolume\AddCLVolume.cs" />
     <Compile Include="Cmdlet\SoundVolume\SetCLVolume.cs" />
-    <Compile Include="Class\Resolution\Monitor.cs" />
+    <Compile Include="Class\Display\Monitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\SoundVolume\VolumeSummary.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Class\WindowsService\" />
+    <Folder Include="Cmdlet\WindowSize\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
