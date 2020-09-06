@@ -54,8 +54,9 @@
     <Compile Include="Class\Display\PNPDeviceID.cs" />
     <Compile Include="Class\Environment\MachineSummary.cs" />
     <Compile Include="Class\Environment\UserSummary.cs" />
-    <Compile Include="Class\Service\ServiceControl.cs" />
-    <Compile Include="Class\Service\ServiceSummary.cs" />
+    <Compile Include="Class\WindowSize\AppWindowSizeSummary.cs" />
+    <Compile Include="Class\WindowsService\ServiceControl.cs" />
+    <Compile Include="Class\WindowsService\ServiceSummary.cs" />
     <Compile Include="Class\Display\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Cmdlet\Environment\RemoveCLUserProfile.cs" />
     <Compile Include="Cmdlet\Environment\AddCLUser.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
+    <Compile Include="Cmdlet\WindowSize\GetAppWindowSize.cs" />
+    <Compile Include="Cmdlet\WindowSize\SetAppWindowSize.cs" />
     <Compile Include="Cmdlet\WindowsService\RestartCLService.cs" />
     <Compile Include="Cmdlet\WindowsService\StartCLService.cs" />
     <Compile Include="Cmdlet\WindowsService\StopCLService.cs" />
@@ -76,9 +79,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\SoundVolume\VolumeSummary.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Class\WindowsService\" />
-    <Folder Include="Cmdlet\WindowSize\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
