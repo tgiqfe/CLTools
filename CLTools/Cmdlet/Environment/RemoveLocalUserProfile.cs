@@ -7,10 +7,10 @@ using System.Management.Automation;
 using System.Management;
 using CLTools.Class.Environment;
 
-namespace CLTools.Cmdlet
+namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Remove, "CLUserProfile")]
-    public class RemoveCLUserProfile : PSCmdlet
+    [Cmdlet(VerbsCommon.Remove, "LocalUserProfile")]
+    public class RemoveLocalUserProfile : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0)]
         public string Name { get; set; }

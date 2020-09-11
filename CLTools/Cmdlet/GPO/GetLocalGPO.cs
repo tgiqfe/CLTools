@@ -24,8 +24,8 @@ namespace CLTools.Cmdlet.GPO
         protected override void BeginProcessing()
         {
             //  カレントディレクトリカレントディレクトリの一時変更
-            _currentDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
+            _currentDirectory = System.Environment.CurrentDirectory;
+            System.Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
         }
 
         protected override void ProcessRecord()
@@ -61,7 +61,7 @@ namespace CLTools.Cmdlet.GPO
         protected override void EndProcessing()
         {
             //  カレントディレクトリを戻す
-            Environment.CurrentDirectory = _currentDirectory;
+            System.Environment.CurrentDirectory = _currentDirectory;
         }
     }
 }

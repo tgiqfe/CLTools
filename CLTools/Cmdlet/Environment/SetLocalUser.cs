@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 using System.Management;
 
-namespace CLTools.Cmdlet
+namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Set, "CLUser")]
-    public class SetCLUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Set, "LocalUser")]
+    public class SetLocalUser : PSCmdlet
     {
         [Parameter(Mandatory=true, Position = 0)]
         public string Name { get; set; }

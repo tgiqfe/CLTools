@@ -8,10 +8,10 @@ using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.DirectoryServices.AccountManagement;
 
-namespace CLTools.Cmdlet
+namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Add, "CLUser")]
-    public class AddCLUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Add, "LocalUser")]
+    public class AddLocalUser : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0)]
         public string User { get; set; }

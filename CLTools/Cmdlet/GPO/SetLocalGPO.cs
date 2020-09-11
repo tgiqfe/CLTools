@@ -34,8 +34,8 @@ namespace CLTools.Cmdlet.GPO
         protected override void BeginProcessing()
         {
             //  カレントディレクトリカレントディレクトリの一時変更
-            _currentDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
+            _currentDirectory = System.Environment.CurrentDirectory;
+            System.Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
         }
 
         protected override void ProcessRecord()
@@ -74,7 +74,7 @@ namespace CLTools.Cmdlet.GPO
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
-                //pol.Save(Item.MACHINE_POL_PATH);
+                pol.Save(Item.MACHINE_POL_PATH);
             }
             else if (User)
             {
@@ -83,14 +83,14 @@ namespace CLTools.Cmdlet.GPO
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
-                //pol.Save(Item.USER_POL_PATH);
+                pol.Save(Item.USER_POL_PATH);
             }
         }
 
         protected override void EndProcessing()
         {
             //  カレントディレクトリを戻す
-            Environment.CurrentDirectory = _currentDirectory;
+            System.Environment.CurrentDirectory = _currentDirectory;
         }
     }
 }

@@ -27,8 +27,8 @@ namespace CLTools.Cmdlet.GPO
         protected override void BeginProcessing()
         {
             //  カレントディレクトリカレントディレクトリの一時変更
-            _currentDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
+            _currentDirectory = System.Environment.CurrentDirectory;
+            System.Environment.CurrentDirectory = this.SessionState.Path.CurrentFileSystemLocation.Path;
         }
 
         protected override void ProcessRecord()
@@ -46,7 +46,7 @@ namespace CLTools.Cmdlet.GPO
                     {
                         pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
                     }
-                    //pol.Save(MACHINE_POL_PATH);
+                    pol.Save(Item.MACHINE_POL_PATH);
                 }
                 if (!IgnoreUser && groupPolicy.User != null && groupPolicy.User.Count > 0)
                 {
@@ -55,7 +55,7 @@ namespace CLTools.Cmdlet.GPO
                     {
                         pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
                     }
-                    //pol.Save(USER_POL_PATH);
+                    pol.Save(Item.USER_POL_PATH);
                 }
                 if (!string.IsNullOrEmpty(TargetPolFile) && groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
                 {
@@ -72,7 +72,7 @@ namespace CLTools.Cmdlet.GPO
         protected override void EndProcessing()
         {
             //  カレントディレクトリを戻す
-            Environment.CurrentDirectory = _currentDirectory;
+            System.Environment.CurrentDirectory = _currentDirectory;
         }
     }
 }
