@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -47,6 +50,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.8.1.2\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Display\ChangeStatePNPDevice.cs" />
@@ -54,6 +60,13 @@
     <Compile Include="Class\Display\PNPDeviceID.cs" />
     <Compile Include="Class\Environment\MachineSummary.cs" />
     <Compile Include="Class\Environment\UserSummary.cs" />
+    <Compile Include="Class\GPO\FileFormatException.cs" />
+    <Compile Include="Class\GPO\GroupPolicy.cs" />
+    <Compile Include="Class\GPO\GroupPolicyObject.cs" />
+    <Compile Include="Class\GPO\PolEntry.cs" />
+    <Compile Include="Class\GPO\PolEntryType.cs" />
+    <Compile Include="Class\GPO\PolFile.cs" />
+    <Compile Include="Class\GPO\RegistryControl.cs" />
     <Compile Include="Class\WindowSize\AppWindowSizeSummary.cs" />
     <Compile Include="Class\WindowsService\ServiceControl.cs" />
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
@@ -64,6 +77,11 @@
     <Compile Include="Cmdlet\Environment\SetCLUser.cs" />
     <Compile Include="Cmdlet\Environment\RemoveCLUserProfile.cs" />
     <Compile Include="Cmdlet\Environment\AddCLUser.cs" />
+    <Compile Include="Class\GPO\Item.cs" />
+    <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
+    <Compile Include="Cmdlet\GPO\GetLocalGPO.cs" />
+    <Compile Include="Cmdlet\GPO\ImportLocalGPO.cs" />
+    <Compile Include="Cmdlet\GPO\SetLocalGPO.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowSize\GetAppWindowSize.cs" />
     <Compile Include="Cmdlet\WindowSize\SetAppWindowSize.cs" />
@@ -76,9 +94,19 @@
     <Compile Include="Cmdlet\SoundVolume\AddCLVolume.cs" />
     <Compile Include="Cmdlet\SoundVolume\SetCLVolume.cs" />
     <Compile Include="Class\Display\Monitor.cs" />
+    <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\SoundVolume\VolumeSummary.cs" />
+    <Compile Include="Serialize\DataSerializer.cs" />
+    <Compile Include="Serialize\DataType.cs" />
+    <Compile Include="Serialize\DictionaryExtensions.cs" />
+    <Compile Include="Serialize\JSON.cs" />
+    <Compile Include="Serialize\SerializableDictionary.cs" />
+    <Compile Include="Serialize\XML.cs" />
+    <Compile Include="Serialize\YML.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

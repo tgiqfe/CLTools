@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.Management;
+using CLTools.Class.Environment;
 
 namespace CLTools.Cmdlet
 {
