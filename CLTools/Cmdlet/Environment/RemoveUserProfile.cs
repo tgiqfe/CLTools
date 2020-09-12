@@ -9,8 +9,8 @@ using CLTools.Class.Environment;
 
 namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Remove, "LocalUserProfile")]
-    public class RemoveLocalUserProfile : PSCmdlet
+    [Cmdlet(VerbsCommon.Remove, "UserProfile")]
+    public class RemoveUserProfile : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0)]
         public string Name { get; set; }

@@ -9,8 +9,8 @@ using System.Management;
 
 namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Get, "LocalUser")]
-    public class GetLocalUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Get, "CLLocalUser")]
+    public class GetCLLocalUser : PSCmdlet
     {
         [Parameter]
         public string Name { get; set; }

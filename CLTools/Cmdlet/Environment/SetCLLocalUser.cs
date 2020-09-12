@@ -8,8 +8,8 @@ using System.Management;
 
 namespace CLTools.Cmdlet.Environment
 {
-    [Cmdlet(VerbsCommon.Set, "LocalUser")]
-    public class SetLocalUser : PSCmdlet
+    [Cmdlet(VerbsCommon.Set, "CLLocalUser")]
+    public class SetCLLocalUser : PSCmdlet
     {
         [Parameter(Mandatory=true, Position = 0)]
         public string Name { get; set; }

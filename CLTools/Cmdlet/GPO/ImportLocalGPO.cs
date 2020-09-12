@@ -39,32 +39,50 @@ namespace CLTools.Cmdlet.GPO
             {
                 GroupPolicy groupPolicy = DataSerializer.Deserialize<GroupPolicy>(ImportFilePath);
 
-                if (!IgnoreMachine && groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
+                if (!string.IsNullOrEmpty(TargetPolFile))
                 {
-                    PolFile pol = new PolFile();
-                    foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                    if (groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
                     {
-                        pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        PolFile pol = new PolFile();
+                        foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                        {
+                            pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        }
+                        if (!Directory.Exists(Path.GetDirectoryName(TargetPolFile)))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(TargetPolFile));
+                        }
+                        pol.Save(TargetPolFile);
                     }
-                    pol.Save(Item.MACHINE_POL_PATH);
                 }
-                if (!IgnoreUser && groupPolicy.User != null && groupPolicy.User.Count > 0)
+                else
                 {
-                    PolFile pol = new PolFile();
-                    foreach (GroupPolicyObject gpo in groupPolicy.User)
+                    if (!IgnoreMachine && groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
                     {
-                        pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        PolFile pol = new PolFile();
+                        foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                        {
+                            pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        }
+                        if (!Directory.Exists(Path.GetDirectoryName(Item.MACHINE_POL_PATH)))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(Item.MACHINE_POL_PATH));
+                        }
+                        pol.Save(Item.MACHINE_POL_PATH);
                     }
-                    pol.Save(Item.USER_POL_PATH);
-                }
-                if (!string.IsNullOrEmpty(TargetPolFile) && groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
-                {
-                    PolFile pol = new PolFile();
-                    foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                    if (!IgnoreUser && groupPolicy.User != null && groupPolicy.User.Count > 0)
                     {
-                        pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        PolFile pol = new PolFile();
+                        foreach (GroupPolicyObject gpo in groupPolicy.User)
+                        {
+                            pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
+                        }
+                        if (!Directory.Exists(Path.GetDirectoryName(Item.USER_POL_PATH)))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(Item.USER_POL_PATH));
+                        }
+                        pol.Save(Item.USER_POL_PATH);
                     }
-                    pol.Save(TargetPolFile);
                 }
             }
         }

@@ -67,6 +67,10 @@ namespace CLTools.Cmdlet.GPO
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
+                if (!Directory.Exists(Path.GetDirectoryName(TargetPolFile)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(TargetPolFile));
+                }
                 pol.Save(TargetPolFile);
             }
             else if (Machine)
@@ -76,6 +80,10 @@ namespace CLTools.Cmdlet.GPO
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
+                if (!Directory.Exists(Path.GetDirectoryName(Item.MACHINE_POL_PATH)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(Item.MACHINE_POL_PATH));
+                }
                 pol.Save(Item.MACHINE_POL_PATH);
             }
             else if (User)
@@ -84,6 +92,10 @@ namespace CLTools.Cmdlet.GPO
                 foreach (GroupPolicyObject gpo in this.GroupPolicyObject)
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
+                }
+                if (!Directory.Exists(Path.GetDirectoryName(Item.USER_POL_PATH)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(Item.USER_POL_PATH));
                 }
                 pol.Save(Item.USER_POL_PATH);
             }

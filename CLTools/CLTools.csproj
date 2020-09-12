@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hnx8.ReadJEnc, Version=1.3.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReadJEnc.1.3.1.2\lib\net47\Hnx8.ReadJEnc.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,10 +76,10 @@
     <Compile Include="Class\Display\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
-    <Compile Include="Cmdlet\Environment\GetLocalUser.cs" />
-    <Compile Include="Cmdlet\Environment\SetLocalUser.cs" />
-    <Compile Include="Cmdlet\Environment\RemoveLocalUserProfile.cs" />
-    <Compile Include="Cmdlet\Environment\AddLocalUser.cs" />
+    <Compile Include="Cmdlet\Environment\GetCLLocalUser.cs" />
+    <Compile Include="Cmdlet\Environment\SetCLLocalUser.cs" />
+    <Compile Include="Cmdlet\Environment\RemoveUserProfile.cs" />
+    <Compile Include="Cmdlet\Environment\AddCLLocalUser.cs" />
     <Compile Include="Class\GPO\Item.cs" />
     <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\TestLocalGPO.cs" />
@@ -99,9 +102,11 @@
     <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\SoundVolume\VolumeSummary.cs" />
+    <None Include="Sample\SettingGPO_01.md" />
     <Compile Include="Serialize\DataSerializer.cs" />
     <Compile Include="Serialize\DataType.cs" />
     <Compile Include="Serialize\DictionaryExtensions.cs" />
+    <Compile Include="Serialize\IniFile.cs" />
     <Compile Include="Serialize\JSON.cs" />
     <Compile Include="Serialize\SerializableDictionary.cs" />
     <Compile Include="Serialize\XML.cs" />
