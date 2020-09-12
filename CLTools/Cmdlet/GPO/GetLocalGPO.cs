@@ -18,6 +18,10 @@ namespace CLTools.Cmdlet.GPO
         public SwitchParameter User { get; set; }
         [Parameter]
         public string TargetPolFile { get; set; }
+        [Parameter]
+        public SwitchParameter ToSetCmdlet { get; set; }
+        [Parameter]
+        public SwitchParameter ToNewCmdlet { get; set; }
 
         private string _currentDirectory = null;
 
@@ -32,28 +36,67 @@ namespace CLTools.Cmdlet.GPO
         {
             GroupPolicy gp = new GroupPolicy();
 
+            Action<List<GroupPolicyObject>> returnObject = (gpoList) =>
+            {
+                var cmdletList = new List<string>();
+
+                if (ToSetCmdlet)
+                {
+                    foreach (GroupPolicyObject gpo in gpoList)
+                    {
+                        cmdletList.Add(string.Format(
+                            "Set-LocalGPO -Path \"{0}\" -Name \"{1}\" -Value {2} -Type {3}",
+                                gpo.Path,
+                                gpo.Name,
+                                (gpo.Type == RegistryControl.REG_DWORD || gpo.Type == RegistryControl.REG_QWORD) ? gpo.Value : "\"" + gpo.Value + "\"",
+                                gpo.Type));
+                    }
+                    WriteObject(string.Join("\r\n", cmdletList));
+                }
+                else if (ToNewCmdlet)
+                {
+                    foreach (GroupPolicyObject gpo in gpoList)
+                    {
+                        cmdletList.Add(string.Format(
+                            "New-LocalGPO -Path \"{0}\" -Name \"{1}\" -Value {2} -Type {3}",
+                                gpo.Path,
+                                gpo.Name,
+                                (gpo.Type == RegistryControl.REG_DWORD || gpo.Type == RegistryControl.REG_QWORD) ? gpo.Value : "\"" + gpo.Value + "\"",
+                                gpo.Type));
+                    }
+                    WriteObject(string.Join("\r\n", cmdletList));
+                }
+                else
+                {
+                    WriteObject(gpoList.ToArray());
+                }
+            };
+
             if (!string.IsNullOrEmpty(TargetPolFile))
             {
+                //  指定のPolファイルから読み込み
                 if (File.Exists(TargetPolFile))
                 {
                     gp.SetMachine(PolFile.Create(TargetPolFile));
-                    WriteObject(gp.Machine.ToArray());
+                    returnObject(gp.Machine);
                 }
             }
             else if (Machine)
             {
+                //  コンピュータの構成
                 if (File.Exists(Item.MACHINE_POL_PATH))
                 {
                     gp.SetMachine(PolFile.Create(Item.MACHINE_POL_PATH));
-                    WriteObject(gp.Machine.ToArray());
+                    returnObject(gp.Machine);
                 }
             }
             else if (User)
             {
+                //  ユーザーの構成
                 if (File.Exists(Item.USER_POL_PATH))
                 {
                     gp.SetUser(PolFile.Create(Item.USER_POL_PATH));
-                    WriteObject(gp.User.ToArray());
+                    returnObject(gp.User);
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CLTools.Class.GPO
 {
-    class FileFormatException : Exception
+    internal class FileFormatException : Exception
     {
     }
 }

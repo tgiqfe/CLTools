@@ -79,8 +79,10 @@
     <Compile Include="Cmdlet\Environment\AddLocalUser.cs" />
     <Compile Include="Class\GPO\Item.cs" />
     <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
+    <Compile Include="Cmdlet\GPO\TestLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\GetLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\ImportLocalGPO.cs" />
+    <Compile Include="Cmdlet\GPO\NewLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\SetLocalGPO.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowSize\GetAppWindowSize.cs" />
