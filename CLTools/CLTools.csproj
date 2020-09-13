@@ -81,6 +81,7 @@
     <Compile Include="Cmdlet\Environment\RemoveUserProfile.cs" />
     <Compile Include="Cmdlet\Environment\AddCLLocalUser.cs" />
     <Compile Include="Class\GPO\Item.cs" />
+    <Compile Include="Cmdlet\Environment\SetCLMachineName.cs" />
     <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\TestLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\GetLocalGPO.cs" />
@@ -90,12 +91,12 @@
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowSize\GetAppWindowSize.cs" />
     <Compile Include="Cmdlet\WindowSize\SetAppWindowSize.cs" />
-    <Compile Include="Cmdlet\WindowsService\RestartCLService.cs" />
-    <Compile Include="Cmdlet\WindowsService\StartCLService.cs" />
-    <Compile Include="Cmdlet\WindowsService\StopCLService.cs" />
-    <Compile Include="Cmdlet\WindowsService\GetCLService.cs" />
+    <Compile Include="Cmdlet\WindowsService\RestartWindowsService.cs" />
+    <Compile Include="Cmdlet\WindowsService\StartWindowsService.cs" />
+    <Compile Include="Cmdlet\WindowsService\StopWindowsService.cs" />
+    <Compile Include="Cmdlet\WindowsService\GetWindowsService.cs" />
     <Compile Include="Cmdlet\Display\SetCLScreenSaver.cs" />
-    <Compile Include="Cmdlet\WindowsService\SetCLService.cs" />
+    <Compile Include="Cmdlet\WindowsService\SetWindowsService.cs" />
     <Compile Include="Cmdlet\SoundVolume\AddCLVolume.cs" />
     <Compile Include="Cmdlet\SoundVolume\SetCLVolume.cs" />
     <Compile Include="Class\Display\Monitor.cs" />
