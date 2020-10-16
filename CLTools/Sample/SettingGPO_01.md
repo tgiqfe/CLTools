@@ -69,6 +69,19 @@ $gpo_disSleepS1S3 = @(
 Set-LocalGPO -Machine -GroupPolicyObject $gpo_disSleepS1S3
 ```
 
+# システム - ログオン
+## コンピューターの起動及びログオンで常にネットワークを待つ 「有効」
+## ユーザーの簡易切り替えのエントリポイントを非表示にする 「有効」
+## 初回サインインのアニメーションを表示する 「無効」
+
+```powershell
+$gpo_systemLogonPolicy = @(
+    (New-LocalGPO -Path "Software\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "SyncForegroundPolicy" -Value 1 -Type REG_DWORD),
+    (New-LocalGPO -Path "Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "HideFastUserSwitching" -Value 1 -Type REG_DWORD),
+    (New-LocalGPO -Path "Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableFirstLogonAnimation" -Value 0 -Type REG_DWORD)
+)
+Set-LocalGPO -Machine -GroupPolicyObject $gpo_systemLogonPolicy
+```
 
 
 
