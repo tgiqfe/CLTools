@@ -61,8 +61,6 @@
     <Compile Include="Class\Display\ChangeStatePNPDevice.cs" />
     <Compile Include="Class\Display\MonitorRegistry.cs" />
     <Compile Include="Class\Display\PNPDeviceID.cs" />
-    <Compile Include="Class\Environment\MachineSummary.cs" />
-    <Compile Include="Class\Environment\UserSummary.cs" />
     <Compile Include="Class\GPO\FileFormatException.cs" />
     <Compile Include="Class\GPO\GroupPolicy.cs" />
     <Compile Include="Class\GPO\GroupPolicyObject.cs" />
@@ -76,12 +74,7 @@
     <Compile Include="Class\Display\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
-    <Compile Include="Cmdlet\Environment\GetCLLocalUser.cs" />
-    <Compile Include="Cmdlet\Environment\SetCLLocalUser.cs" />
-    <Compile Include="Cmdlet\Environment\RemoveUserProfile.cs" />
-    <Compile Include="Cmdlet\Environment\AddCLLocalUser.cs" />
     <Compile Include="Class\GPO\Item.cs" />
-    <Compile Include="Cmdlet\Environment\SetCLMachineName.cs" />
     <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\TestLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\GetLocalGPO.cs" />
@@ -116,5 +109,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
