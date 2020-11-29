@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,6 +74,7 @@
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
     <Compile Include="Class\Display\DisplaySummary.cs" />
     <Compile Include="Class\SoundVolume\Sound.cs" />
+    <Compile Include="Cmdlet\Display\SetDesktopWallpaper.cs" />
     <Compile Include="Cmdlet\Display\SetCLResolution.cs" />
     <Compile Include="Class\GPO\Item.cs" />
     <Compile Include="Cmdlet\GPO\ExportLocalGPO.cs" />
