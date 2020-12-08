@@ -10,6 +10,9 @@ namespace CLTools.Cmdlet.MemoryDump
     [Cmdlet(VerbsCommon.Get, "PagingFileSetting")]
     public class GetPagingFileSetting : PSCmdlet
     {
+        [Parameter]
+        public SwitchParameter PagingFile { get; set; }
+
         protected override void ProcessRecord()
         {
             var setting = new Class.MemoryDump.PagingFileSetting();
@@ -55,7 +58,15 @@ namespace CLTools.Cmdlet.MemoryDump
             }
             setting.PagingFiles = setting.PagingFiles.OrderBy(x => x.DriveName).ToList();
 
-            WriteObject(setting);
+            //  パラメータで「-PagingFile」を指定した場合、PagingFileSettingではなくPagingFileのリストを返す。
+            if (this.PagingFile)
+            {
+                WriteObject(setting.PagingFiles);
+            }
+            else
+            {
+                WriteObject(setting);
+            }
         }
     }
 }
