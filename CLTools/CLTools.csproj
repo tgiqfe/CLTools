@@ -69,6 +69,11 @@
     <Compile Include="Class\GPO\PolEntryType.cs" />
     <Compile Include="Class\GPO\PolFile.cs" />
     <Compile Include="Class\GPO\RegistryControl.cs" />
+    <Compile Include="Class\MemoryDump\DumpType.cs" />
+    <Compile Include="Class\MemoryDump\MemoryDumpSetting.cs" />
+    <Compile Include="Class\MemoryDump\PagingFile.cs" />
+    <Compile Include="Class\MemoryDump\PagingFileSetting.cs" />
+    <Compile Include="Class\MemoryDump\PagingFileSizeType.cs" />
     <Compile Include="Class\WindowSize\AppWindowSizeSummary.cs" />
     <Compile Include="Class\WindowsService\ServiceControl.cs" />
     <Compile Include="Class\WindowsService\ServiceSummary.cs" />
@@ -83,6 +88,12 @@
     <Compile Include="Cmdlet\GPO\ImportLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\NewLocalGPO.cs" />
     <Compile Include="Cmdlet\GPO\SetLocalGPO.cs" />
+    <Compile Include="Cmdlet\MemoryDump\GetMemoryDumpSetting.cs" />
+    <Compile Include="Cmdlet\MemoryDump\GetPagingFileSetting.cs" />
+    <Compile Include="Cmdlet\MemoryDump\NewMemoryDumpSetting.cs" />
+    <Compile Include="Cmdlet\MemoryDump\NewPagingFile.cs" />
+    <Compile Include="Cmdlet\MemoryDump\SetMemoryDumpSetting.cs" />
+    <Compile Include="Cmdlet\MemoryDump\SetPagingFileSetting.cs" />
     <Compile Include="Cmdlet\SoundVolume\GetCLVolume.cs" />
     <Compile Include="Cmdlet\WindowSize\GetAppWindowSize.cs" />
     <Compile Include="Cmdlet\WindowSize\SetAppWindowSize.cs" />
