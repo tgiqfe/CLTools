@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CLTools.Class.GPO;
 using System.Management.Automation;
 
 namespace CLTools.Cmdlet.GPO
@@ -31,7 +30,7 @@ namespace CLTools.Cmdlet.GPO
 
         protected override void ProcessRecord()
         {
-            var gpo = new GroupPolicyObject()
+            var gpo = new Class.GPO.GroupPolicyObject()
             {
                 Path = RegistryPath,
                 Name = RegistryName,

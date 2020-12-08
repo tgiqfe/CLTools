@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
-using CLTools.Class.GPO;
 
 namespace CLTools.Cmdlet.GPO
 {
@@ -19,7 +18,7 @@ namespace CLTools.Cmdlet.GPO
         [Parameter]
         public string TargetPolFile { get; set; }
         [Parameter, Alias("GPO")]
-        public GroupPolicyObject[] GroupPolicyObject { get; set; }
+        public Class.GPO.GroupPolicyObject[] GroupPolicyObject { get; set; }
         [Parameter, Alias("Path")]
         public string RegistryPath { get; set; }
         [Parameter, Alias("Name")]
@@ -46,9 +45,9 @@ namespace CLTools.Cmdlet.GPO
                 !string.IsNullOrEmpty(RegistryType) &&
                 !string.IsNullOrEmpty(RegistryValue))
             {
-                this.GroupPolicyObject = new GroupPolicyObject[1]
+                this.GroupPolicyObject = new Class.GPO.GroupPolicyObject[1]
                 {
-                    new GroupPolicyObject()
+                    new Class.GPO.GroupPolicyObject()
                     {
                         Path = RegistryPath,
                         Name = RegistryName,
@@ -58,14 +57,14 @@ namespace CLTools.Cmdlet.GPO
                 };
             }
 
-            GroupPolicy gp = new GroupPolicy();
+            Class.GPO.GroupPolicy gp = new Class.GPO.GroupPolicy();
 
-            Func<List<GroupPolicyObject>, bool> checkContain = (gpoList) =>
+            Func<List<Class.GPO.GroupPolicyObject>, bool> checkContain = (gpoList) =>
             {
                 if(gpoList.Count > 0)
                 {
                     bool result = true;
-                    foreach (GroupPolicyObject paramGPO in this.GroupPolicyObject)
+                    foreach (Class.GPO.GroupPolicyObject paramGPO in this.GroupPolicyObject)
                     {
                         result &= gpoList.Any(x =>
                             x.Path.Equals(paramGPO.Path, StringComparison.OrdinalIgnoreCase) &&
@@ -85,23 +84,23 @@ namespace CLTools.Cmdlet.GPO
             {
                 if (File.Exists(TargetPolFile))
                 {
-                    gp.SetMachine(PolFile.Create(TargetPolFile));
+                    gp.SetMachine(Class.GPO.PolFile.Create(TargetPolFile));
                     WriteObject(checkContain(gp.Machine));
                 }
             }
             else if (Machine)
             {
-                if (File.Exists(Item.MACHINE_POL_PATH))
+                if (File.Exists(Class.GPO.Item.MACHINE_POL_PATH))
                 {
-                    gp.SetMachine(PolFile.Create(Item.MACHINE_POL_PATH));
+                    gp.SetMachine(Class.GPO.PolFile.Create(Class.GPO.Item.MACHINE_POL_PATH));
                     WriteObject(checkContain(gp.Machine));
                 }
             }
             else if (User)
             {
-                if (File.Exists(Item.USER_POL_PATH))
+                if (File.Exists(Class.GPO.Item.USER_POL_PATH))
                 {
-                    gp.SetUser(PolFile.Create(Item.USER_POL_PATH));
+                    gp.SetUser(Class.GPO.PolFile.Create(Class.GPO.Item.USER_POL_PATH));
                     WriteObject(checkContain(gp.User));
                 }
             }

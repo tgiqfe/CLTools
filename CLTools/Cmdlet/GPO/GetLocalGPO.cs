@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
-using CLTools.Class.GPO;
 
 namespace CLTools.Cmdlet.GPO
 {
@@ -34,34 +33,36 @@ namespace CLTools.Cmdlet.GPO
 
         protected override void ProcessRecord()
         {
-            GroupPolicy gp = new GroupPolicy();
+            Class.GPO.GroupPolicy gp = new Class.GPO.GroupPolicy();
 
-            Action<List<GroupPolicyObject>> returnObject = (gpoList) =>
+            Action<List<Class.GPO.GroupPolicyObject>> returnObject = (gpoList) =>
             {
                 var cmdletList = new List<string>();
 
                 if (ToSetCmdlet)
                 {
-                    foreach (GroupPolicyObject gpo in gpoList)
+                    foreach (Class.GPO.GroupPolicyObject gpo in gpoList)
                     {
                         cmdletList.Add(string.Format(
                             "Set-LocalGPO -Path \"{0}\" -Name \"{1}\" -Value {2} -Type {3}",
                                 gpo.Path,
                                 gpo.Name,
-                                (gpo.Type == RegistryControl.REG_DWORD || gpo.Type == RegistryControl.REG_QWORD) ? gpo.Value : "\"" + gpo.Value + "\"",
+                                (gpo.Type == Class.GPO.RegistryControl.REG_DWORD || gpo.Type == Class.GPO.RegistryControl.REG_QWORD) ? gpo.Value : "\"" + gpo.Value + "\"",
                                 gpo.Type));
                     }
                     WriteObject(string.Join("\r\n", cmdletList));
                 }
                 else if (ToNewCmdlet)
                 {
-                    foreach (GroupPolicyObject gpo in gpoList)
+                    foreach (Class.GPO.GroupPolicyObject gpo in gpoList)
                     {
                         cmdletList.Add(string.Format(
                             "New-LocalGPO -Path \"{0}\" -Name \"{1}\" -Value {2} -Type {3}",
                                 gpo.Path,
                                 gpo.Name,
-                                (gpo.Type == RegistryControl.REG_DWORD || gpo.Type == RegistryControl.REG_QWORD) ? gpo.Value : "\"" + gpo.Value + "\"",
+                                (gpo.Type == Class.GPO.RegistryControl.REG_DWORD || gpo.Type == Class.GPO.RegistryControl.REG_QWORD) ?
+                                    gpo.Value :
+                                    "\"" + gpo.Value + "\"",
                                 gpo.Type));
                     }
                     WriteObject(string.Join("\r\n", cmdletList));
@@ -77,25 +78,25 @@ namespace CLTools.Cmdlet.GPO
                 //  指定のPolファイルから読み込み
                 if (File.Exists(TargetPolFile))
                 {
-                    gp.SetMachine(PolFile.Create(TargetPolFile));
+                    gp.SetMachine(Class.GPO.PolFile.Create(TargetPolFile));
                     returnObject(gp.Machine);
                 }
             }
             else if (Machine)
             {
                 //  コンピュータの構成
-                if (File.Exists(Item.MACHINE_POL_PATH))
+                if (File.Exists(Class.GPO.Item.MACHINE_POL_PATH))
                 {
-                    gp.SetMachine(PolFile.Create(Item.MACHINE_POL_PATH));
+                    gp.SetMachine(Class.GPO.PolFile.Create(Class.GPO.Item.MACHINE_POL_PATH));
                     returnObject(gp.Machine);
                 }
             }
             else if (User)
             {
                 //  ユーザーの構成
-                if (File.Exists(Item.USER_POL_PATH))
+                if (File.Exists(Class.GPO.Item.USER_POL_PATH))
                 {
-                    gp.SetUser(PolFile.Create(Item.USER_POL_PATH));
+                    gp.SetUser(Class.GPO.PolFile.Create(Class.GPO.Item.USER_POL_PATH));
                     returnObject(gp.User);
                 }
             }

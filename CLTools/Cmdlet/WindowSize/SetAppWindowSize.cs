@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.Diagnostics;
-using CLTools.Class.WindowSize;
 
 namespace CLTools.Cmdlet.WindowSize
 {
@@ -42,7 +41,7 @@ namespace CLTools.Cmdlet.WindowSize
             Process[] processes = Process.GetProcessesByName(ApplicationName);
             foreach (Process process in processes)
             {
-                var summary = new AppWindowSizeSummary(process);
+                var summary = new Class.WindowSize.AppWindowSizeSummary(process);
 
                 if (WithDropShadow)
                 {

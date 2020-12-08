@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
-using CLTools.Class.GPO;
 using CLTools.Serialize;
 
 namespace CLTools.Cmdlet.GPO
@@ -37,14 +36,14 @@ namespace CLTools.Cmdlet.GPO
 
             if (!string.IsNullOrEmpty(ImportFilePath))
             {
-                GroupPolicy groupPolicy = DataSerializer.Deserialize<GroupPolicy>(ImportFilePath);
+                Class.GPO.GroupPolicy groupPolicy = DataSerializer.Deserialize<Class.GPO.GroupPolicy>(ImportFilePath);
 
                 if (!string.IsNullOrEmpty(TargetPolFile))
                 {
                     if (groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
                     {
-                        PolFile pol = new PolFile();
-                        foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                        Class.GPO.PolFile pol = new Class.GPO.PolFile();
+                        foreach (Class.GPO.GroupPolicyObject gpo in groupPolicy.Machine)
                         {
                             pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
                         }
@@ -59,29 +58,29 @@ namespace CLTools.Cmdlet.GPO
                 {
                     if (!IgnoreMachine && groupPolicy.Machine != null && groupPolicy.Machine.Count > 0)
                     {
-                        PolFile pol = new PolFile();
-                        foreach (GroupPolicyObject gpo in groupPolicy.Machine)
+                        Class.GPO.PolFile pol = new Class.GPO.PolFile();
+                        foreach (Class.GPO.GroupPolicyObject gpo in groupPolicy.Machine)
                         {
                             pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
                         }
-                        if (!Directory.Exists(Path.GetDirectoryName(Item.MACHINE_POL_PATH)))
+                        if (!Directory.Exists(Path.GetDirectoryName(Class.GPO.Item.MACHINE_POL_PATH)))
                         {
-                            Directory.CreateDirectory(Path.GetDirectoryName(Item.MACHINE_POL_PATH));
+                            Directory.CreateDirectory(Path.GetDirectoryName(Class.GPO.Item.MACHINE_POL_PATH));
                         }
-                        pol.Save(Item.MACHINE_POL_PATH);
+                        pol.Save(Class.GPO.Item.MACHINE_POL_PATH);
                     }
                     if (!IgnoreUser && groupPolicy.User != null && groupPolicy.User.Count > 0)
                     {
-                        PolFile pol = new PolFile();
-                        foreach (GroupPolicyObject gpo in groupPolicy.User)
+                        Class.GPO.PolFile pol = new Class.GPO.PolFile();
+                        foreach (Class.GPO.GroupPolicyObject gpo in groupPolicy.User)
                         {
                             pol.Entries[gpo.Path + "\\" + gpo.Name] = gpo.ConvertToPolEntry();
                         }
-                        if (!Directory.Exists(Path.GetDirectoryName(Item.USER_POL_PATH)))
+                        if (!Directory.Exists(Path.GetDirectoryName(Class.GPO.Item.USER_POL_PATH)))
                         {
-                            Directory.CreateDirectory(Path.GetDirectoryName(Item.USER_POL_PATH));
+                            Directory.CreateDirectory(Path.GetDirectoryName(Class.GPO.Item.USER_POL_PATH));
                         }
-                        pol.Save(Item.USER_POL_PATH);
+                        pol.Save(Class.GPO.Item.USER_POL_PATH);
                     }
                 }
             }

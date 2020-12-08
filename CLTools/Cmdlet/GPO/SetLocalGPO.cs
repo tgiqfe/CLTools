@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
-using CLTools.Class.GPO;
 using System.IO;
 
 namespace CLTools.Cmdlet.GPO
@@ -19,7 +18,7 @@ namespace CLTools.Cmdlet.GPO
         [Parameter]
         public string TargetPolFile { get; set; }
         [Parameter, Alias("GPO")]
-        public GroupPolicyObject[] GroupPolicyObject { get; set; }
+        public Class.GPO.GroupPolicyObject[] GroupPolicyObject { get; set; }
         [Parameter, Alias("Path")]
         public string RegistryPath { get; set; }
         [Parameter, Alias("Name")]
@@ -48,9 +47,9 @@ namespace CLTools.Cmdlet.GPO
                 !string.IsNullOrEmpty(RegistryType) &&
                 !string.IsNullOrEmpty(RegistryValue))
             {
-                this.GroupPolicyObject = new GroupPolicyObject[1]
+                this.GroupPolicyObject = new Class.GPO.GroupPolicyObject[1]
                 {
-                    new GroupPolicyObject()
+                    new Class.GPO.GroupPolicyObject()
                     {
                         Path = RegistryPath,
                         Name = RegistryName,
@@ -62,8 +61,8 @@ namespace CLTools.Cmdlet.GPO
 
             if (!string.IsNullOrEmpty(TargetPolFile))
             {
-                PolFile pol = PolFile.Create(TargetPolFile);
-                foreach (GroupPolicyObject gpo in this.GroupPolicyObject)
+                Class.GPO.PolFile pol = Class.GPO.PolFile.Create(TargetPolFile);
+                foreach (Class.GPO.GroupPolicyObject gpo in this.GroupPolicyObject)
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
@@ -75,29 +74,29 @@ namespace CLTools.Cmdlet.GPO
             }
             else if (Machine)
             {
-                PolFile pol = PolFile.Create(Item.MACHINE_POL_PATH);
-                foreach (GroupPolicyObject gpo in this.GroupPolicyObject)
+                Class.GPO.PolFile pol = Class.GPO.PolFile.Create(Class.GPO.Item.MACHINE_POL_PATH);
+                foreach (Class.GPO.GroupPolicyObject gpo in this.GroupPolicyObject)
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
-                if (!Directory.Exists(Path.GetDirectoryName(Item.MACHINE_POL_PATH)))
+                if (!Directory.Exists(Path.GetDirectoryName(Class.GPO.Item.MACHINE_POL_PATH)))
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(Item.MACHINE_POL_PATH));
+                    Directory.CreateDirectory(Path.GetDirectoryName(Class.GPO.Item.MACHINE_POL_PATH));
                 }
-                pol.Save(Item.MACHINE_POL_PATH);
+                pol.Save(Class.GPO.Item.MACHINE_POL_PATH);
             }
             else if (User)
             {
-                PolFile pol = PolFile.Create(Item.USER_POL_PATH);
-                foreach (GroupPolicyObject gpo in this.GroupPolicyObject)
+                Class.GPO.PolFile pol = Class.GPO.PolFile.Create(Class.GPO.Item.USER_POL_PATH);
+                foreach (Class.GPO.GroupPolicyObject gpo in this.GroupPolicyObject)
                 {
                     pol.SetValue(gpo.ConvertToPolEntry());
                 }
-                if (!Directory.Exists(Path.GetDirectoryName(Item.USER_POL_PATH)))
+                if (!Directory.Exists(Path.GetDirectoryName(Class.GPO.Item.USER_POL_PATH)))
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(Item.USER_POL_PATH));
+                    Directory.CreateDirectory(Path.GetDirectoryName(Class.GPO.Item.USER_POL_PATH));
                 }
-                pol.Save(Item.USER_POL_PATH);
+                pol.Save(Class.GPO.Item.USER_POL_PATH);
             }
         }
 

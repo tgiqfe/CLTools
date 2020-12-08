@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
-using CLTools.Class.GPO;
 using CLTools.Serialize;
 
 namespace CLTools.Cmdlet.GPO
@@ -33,28 +32,28 @@ namespace CLTools.Cmdlet.GPO
 
         protected override void ProcessRecord()
         {
-            var gp = new GroupPolicy();
+            var gp = new Class.GPO.GroupPolicy();
 
             if (!string.IsNullOrEmpty(TargetPolFile))
             {
                 //  指定したファイルを「コンピュータの構成」として取得
                 if (File.Exists(TargetPolFile))
                 {
-                    gp.SetMachine(PolFile.Create(TargetPolFile));
+                    gp.SetMachine(Class.GPO.PolFile.Create(TargetPolFile));
                 }
             }
             else
             {
                 //  「コンピュータの構成」を取得
-                if (!IgnoreMachine && File.Exists(Item.MACHINE_POL_PATH))
+                if (!IgnoreMachine && File.Exists(Class.GPO.Item.MACHINE_POL_PATH))
                 {
-                    gp.SetMachine(PolFile.Create(Item.MACHINE_POL_PATH));
+                    gp.SetMachine(Class.GPO.PolFile.Create(Class.GPO.Item.MACHINE_POL_PATH));
                 }
 
                 //  「ユーザーの構成」を取得
-                if (!IgnoreUser && File.Exists(Item.USER_POL_PATH))
+                if (!IgnoreUser && File.Exists(Class.GPO.Item.USER_POL_PATH))
                 {
-                    gp.SetUser(PolFile.Create(Item.USER_POL_PATH));
+                    gp.SetUser(Class.GPO.PolFile.Create(Class.GPO.Item.USER_POL_PATH));
                 }
             }
 
@@ -64,7 +63,7 @@ namespace CLTools.Cmdlet.GPO
             }
             else
             {
-                DataSerializer.Serialize<GroupPolicy>(gp, ExportFilePath);
+                DataSerializer.Serialize<Class.GPO.GroupPolicy>(gp, ExportFilePath);
             }
         }
 
