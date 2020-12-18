@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using System.IO;
 
 namespace CLTools.Class.MemoryDump
 {
@@ -113,6 +114,11 @@ namespace CLTools.Class.MemoryDump
 
                 //  ダンプ出力先ファイルのパス
                 regKey.SetValue(name_DUMPFILE, this.DumpFilePath, RegistryValueKind.ExpandString);
+                string dumpFileDir = Path.GetDirectoryName(this.DumpFilePath);
+                if (!Directory.Exists(dumpFileDir))
+                {
+                    Directory.CreateDirectory(dumpFileDir);
+                }
 
                 //  最小ダンプの出力先フォルダー
                 regKey.SetValue(name_MINIDUMPDIR, this.MiniDumpDir, RegistryValueKind.ExpandString);
